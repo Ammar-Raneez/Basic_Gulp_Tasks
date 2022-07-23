@@ -7,6 +7,9 @@
 import gulp from 'gulp';
 import imagemin from 'gulp-imagemin';
 import uglify from 'gulp-uglify';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass(dartSass);
 
 // logs message
 gulp.task('message', async function () {
@@ -33,7 +36,15 @@ gulp.task('optimize-images', async function () {
 
 // Minify js
 gulp.task('minify-js', async function () {
-  gulp.src('src/js/*')
+  gulp.src('src/js/*.js')
     .pipe(uglify())
     .pipe(gulp.dest('dist/js'));
+});
+
+// Compile sass
+gulp.task('compile-sass', async function () {
+  gulp.src('src/sass/*.scss')
+    // Incase there is an error in sass code, log it
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('dist/css'));
 });
