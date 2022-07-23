@@ -6,6 +6,7 @@
 
 import gulp from 'gulp';
 import imagemin from 'gulp-imagemin';
+import uglify from 'gulp-uglify';
 
 // logs message
 gulp.task('message', async function () {
@@ -28,4 +29,11 @@ gulp.task('optimize-images', async function () {
   gulp.src('src/images/*')
     .pipe(imagemin())
     .pipe(gulp.dest('dist/images'));
+});
+
+// Minify js
+gulp.task('minify-js', async function () {
+  gulp.src('src/js/*')
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/js'));
 });
