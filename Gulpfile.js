@@ -5,6 +5,7 @@
 // gulp.watch = watch files and folders for changes
 
 import gulp from 'gulp';
+import imagemin from 'gulp-imagemin';
 
 // logs message
 gulp.task('message', async function () {
@@ -20,4 +21,11 @@ gulp.task('default', async function () {
 gulp.task('copy-html', async function () {
   gulp.src('src/*.html')
     .pipe(gulp.dest('dist'));
+});
+
+// Optimize images
+gulp.task('optimize-images', async function () {
+  gulp.src('src/images/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('dist/images'));
 });
