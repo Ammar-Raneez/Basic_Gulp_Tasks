@@ -17,9 +17,9 @@ gulp.task('message', async function () {
 });
 
 // Default task - doesnt require specifying task name on command - gulp {default}
-gulp.task('default', async function () {
-  return console.log('Gulp is running...')
-});
+// gulp.task('default', async function () {
+//   return console.log('Gulp is running...')
+// });
 
 // Copy html files
 gulp.task('copy-html', async function () {
@@ -48,3 +48,6 @@ gulp.task('compile-sass', async function () {
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist/css'));
 });
+
+// Run all tasks
+gulp.task('default', gulp.series('message', 'copy-html', 'optimize-images', 'minify-js', 'compile-sass'));
