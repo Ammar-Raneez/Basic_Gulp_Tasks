@@ -67,3 +67,10 @@ gulp.task('default', gulp.series(
   'combine-js',
   ),
 );
+
+gulp.task('watch', async function () {
+  gulp.watch('src/*.html', gulp.series('copy-html'));
+  gulp.watch('src/images/*', gulp.series('optimize-images'));
+  gulp.watch('src/sass/*.scss', gulp.series('compile-sass'));
+  gulp.watch('src/js/*.js', gulp.series('combine-js'));
+});
