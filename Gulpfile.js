@@ -7,6 +7,7 @@
 import gulp from 'gulp';
 import imagemin from 'gulp-imagemin';
 import uglify from 'gulp-uglify';
+import concat from 'gulp-concat';
 import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
 const sass = gulpSass(dartSass);
@@ -35,11 +36,11 @@ gulp.task('optimize-images', async function () {
 });
 
 // Minify js
-gulp.task('minify-js', async function () {
-  gulp.src('src/js/*.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('dist/js'));
-});
+// gulp.task('minify-js', async function () {
+//   gulp.src('src/js/*.js')
+//     .pipe(uglify())
+//     .pipe(gulp.dest('dist/js'));
+// });
 
 // Compile sass
 gulp.task('compile-sass', async function () {
@@ -49,5 +50,20 @@ gulp.task('compile-sass', async function () {
     .pipe(gulp.dest('dist/css'));
 });
 
+// Combine javascript files
+gulp.task('combine-js', async function () {
+  gulp.src('src/js/*.js')
+    .pipe(concat('main.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/js'));
+});
+
 // Run all tasks
-gulp.task('default', gulp.series('message', 'copy-html', 'optimize-images', 'minify-js', 'compile-sass'));
+gulp.task('default', gulp.series(
+  'message',
+  'copy-html',
+  'optimize-images',
+  'compile-sass',
+  'combine-js',
+  ),
+);
